@@ -1,0 +1,47 @@
+---
+description: Scope, implementation quality, validation, and documentation for the Fintual challenge
+alwaysApply: true
+---
+
+# Project standards
+
+## Scope and design
+- Implement the supplied Portfolio/Stock exercise in small, explainable steps.
+- Keep data in memory and use supplied prices; return a trade proposal without executing orders.
+- Keep persistence, HTTP endpoints, a frontend, and deployment as optional extensions.
+- Keep portfolio calculations in ordinary Python classes without Django imports.
+- Keep commands and optional views thin; delegate business behavior to feature classes or services.
+- Organize by feature (`portfolio`); extract services when they have a concrete responsibility.
+- Add a module or abstraction when it has a concrete responsibility; keep related code together.
+
+## Python and numeric correctness
+- Use English identifiers, Python naming conventions, and type hints on public functions.
+- Use Decimal for prices, quantities, and weights; construct it from strings or integers, not floats.
+- Agree and document numeric precision, rounding, and financial assumptions before relying on them.
+- Validate inputs with useful errors; do not silently repair invalid data or swallow exceptions.
+- Keep calculations deterministic for the same inputs and leave the supplied portfolio unchanged.
+- Write short comments or docstrings for intent, assumptions, or non-obvious behavior.
+- Use Ruff for linting and formatting; type hints need a separate checker for static enforcement.
+
+## Verification and CI
+- Test observable behavior and domain invariants with standard-library unittest.
+- Cover balanced and unbalanced portfolios, invalid inputs, and agreed boundary cases.
+- Keep core tests independent of network access, external services, and a database.
+- Run checks relevant to each change; report their results and material limitations.
+- Add GitHub Actions after meaningful tests exist: install pinned dependencies, lint, check formatting, run tests.
+- Keep local and CI checks equivalent; deployment is not required for the challenge.
+
+## Environment and usability
+- Use an isolated environment and pinned dependencies; choose supported releases deliberately.
+- Keep secrets, virtual environments, generated caches, and local data out of version control.
+- Make the example reproducible and label trade direction, ticker, quantity, and monetary units clearly.
+- Make invalid command input produce a clear message and a nonzero exit status.
+- If a frontend is added, support narrow and wide screens, keyboard use, labels, and useful validation feedback.
+- Reuse frontend components for repeated UI or behavior; avoid copying business rules across screens.
+- Keep calculation rules in Python; an optional frontend should consume their results.
+
+## Documentation and collaboration
+- Keep the README focused on setup, execution, an example, assumptions, checks, and limitations.
+- Distinguish exercise requirements, agreed assumptions, and pending decisions.
+- Explain meaningful decisions before implementing them; avoid generating the entire solution at once.
+- Include the actual LLM conversation record before submission; do not present a summary as a full transcript.
