@@ -3,23 +3,39 @@
 A small Python module that proposes trades from supplied prices and target
 allocations, with a Django command for running an example. No orders are executed.
 
-## Setup and checks
+## Setup
 
 Prepared with Python 3.12.10 and Django 5.2.18 (LTS). Dependencies are pinned in
-`requirements.txt`; `requirements-dev.txt` adds Ruff. From the repository directory
-in PowerShell:
+`requirements.txt`; `requirements-dev.txt` adds Ruff. Python 3.12 is required;
+`uv` is optional. From the repository directory in PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+```
+
+If using `uv`, the equivalent setup is:
 
 ```powershell
 uv venv --python 3.12 .venv
 uv pip install --python .venv\Scripts\python.exe -r requirements-dev.txt
+```
+
+On macOS/Linux, create the environment with `python3 -m venv .venv` and use
+`.venv/bin/python` instead of `.\.venv\Scripts\python.exe` in the commands below.
+For example, install dependencies with
+`.venv/bin/python -m pip install -r requirements-dev.txt`.
+
+Activation is optional. No database setup, migrations, or network price source is needed.
+
+## Run the checks
+
+```powershell
 .\.venv\Scripts\python.exe manage.py check
 .\.venv\Scripts\python.exe -m ruff check .
 .\.venv\Scripts\python.exe -m ruff format --check .
 .\.venv\Scripts\python.exe -m unittest discover -s portfolio/tests -v
-uv pip check --python .venv\Scripts\python.exe
 ```
-
-Activation is optional. No database setup, migrations, or network price source is needed.
 
 ## Run the example
 
@@ -121,17 +137,26 @@ checking output and error exit statuses. Tests cover expected trades, balanced
 and zero-value portfolios, omitted/new targets, fractions, rounding, approximate
 value conservation, repeatability, and preservation of inputs and decimal context.
 
-The first remote CI run is pending reviewed changes being pushed. Deployment and
-a frontend are not required. Project conventions are in
+The checks have also [passed on GitHub Actions](https://github.com/Yianfri/fintual-portfolio/actions/runs/41127268423).
+Deployment and a frontend are not required. Project conventions are in
 [project-standards.mdc](.cursor/rules/project-standards.mdc), referenced by
 [AGENTS.md](AGENTS.md). Type hints document interfaces; Ruff is not a type checker.
 
 ## Submission and LLM disclosure
 
-The actual LLM conversation record has not yet been exported or included. It must
-be shared with the solution as Fintual requests; a summary alone is not the record.
-Before applying, ensure reviewers can access both. A private repository requires
-reviewer invitations; its link alone grants no access.
+An LLM assisted with implementation, tests, documentation, and discussion of design
+decisions. Conversation records are available here, as required by the exercise:
+
+- [Shared conversation on ChatGPT](https://chatgpt.com/s/cx_6ae5df6fcd888191807909bc77db45e0).
+- [Conversation transcript in this repository](docs/ai-conversation.md).
+
+The repository transcript preserves user and assistant messages in their original
+language; it is not a reasoning summary. The export scope and snapshot cutoff are documented at
+the beginning of that file. Refresh the record if further conversations change
+the solution.
+
+Before applying, ensure reviewers can access the code and conversation record.
+A private repository requires reviewer invitations; its link alone grants no access.
 
 ## References
 
